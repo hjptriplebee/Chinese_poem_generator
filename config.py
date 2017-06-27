@@ -10,5 +10,6 @@ batchSize = 16
 learningRateBase = 0.002
 learningRateDecreaseStep = 80
 epochNum = 100
+generateNum = 5
 
 trainPoems = "poetry.txt" # training file location
