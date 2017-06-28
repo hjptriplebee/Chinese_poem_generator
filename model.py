@@ -50,7 +50,7 @@ def train(X, Y, wordNum, reload=True):
         sess.run(tf.global_variables_initializer())
         saver = tf.train.Saver()
         if reload:
-            checkPoint = tf.train.get_checkpoint_state(".")
+            checkPoint = tf.train.get_checkpoint_state(checkpointsPath)
             # if have checkPoint, restore checkPoint
             if checkPoint and checkPoint.model_checkpoint_path:
                 saver.restore(sess, checkPoint.model_checkpoint_path)
@@ -70,7 +70,7 @@ def train(X, Y, wordNum, reload=True):
                 print("epoch: %d steps:%d/%d loss:%3f" % (epoch,step,epochSteps,loss))
                 if globalStep%1000==0:
                     print("save model")
-                    saver.save(sess,"poem",global_step=epoch)
+                    saver.save(sess,checkpointsPath + "/poem",global_step=epoch)
 
 def probsToWord(weights, words):
     """probs to word"""
@@ -87,13 +87,14 @@ def test(wordNum, wordToID, words):
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
         saver = tf.train.Saver()
-        checkPoint = tf.train.get_checkpoint_state(".")
+        checkPoint = tf.train.get_checkpoint_state(checkpointsPath)
         # if have checkPoint, restore checkPoint
         if checkPoint and checkPoint.model_checkpoint_path:
             saver.restore(sess, checkPoint.model_checkpoint_path)
             print("restored %s" % checkPoint.model_checkpoint_path)
         else:
             print("no checkpoint found!")
+            exit(0)
 
         poems = []
         for i in range(generateNum):
@@ -102,11 +103,12 @@ def test(wordNum, wordToID, words):
             probs1, state = sess.run([probs, finalState], feed_dict={gtX: x, initState: state})
             word = probsToWord(probs1, words)
             poem = ''
-            while word != ']':
+            while word != ']' and word != ' ':
                 poem += word
                 if word == '。':
                     poem += '\n'
                 x = np.array([[wordToID[word]]])
+                #print(word)
                 probs2, state = sess.run([probs, finalState], feed_dict={gtX: x, initState: state})
                 word = probsToWord(probs2, words)
             print(poem)
@@ -119,28 +121,38 @@ def testHead(wordNum, wordToID, words, characters):
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
         saver = tf.train.Saver()
-        checkPoint = tf.train.get_checkpoint_state(".")
+        checkPoint = tf.train.get_checkpoint_state(checkpointsPath)
         # if have checkPoint, restore checkPoint
         if checkPoint and checkPoint.model_checkpoint_path:
             saver.restore(sess, checkPoint.model_checkpoint_path)
             print("restored %s" % checkPoint.model_checkpoint_path)
         else:
             print("no checkpoint found!")
+            exit(0)
         flag = 1
         endSign = {-1: "，", 1: "。"}
         poem = ''
+        state = sess.run(stackCell.zero_state(1, tf.float32))
+        x = np.array([[wordToID['[']]])
+        probs1, state = sess.run([probs, finalState], feed_dict={gtX: x, initState: state})
         for c in characters:
-            state = sess.run(stackCell.zero_state(1, tf.float32))
             word = c
             flag = -flag
-            while word != ']' and word != '，' and word != '。':
+            while word != ']' and word != '，' and word != '。' and word != ' ':
                 poem += word
                 x = np.array([[wordToID[word]]])
                 probs2, state = sess.run([probs, finalState], feed_dict={gtX: x, initState: state})
                 word = probsToWord(probs2, words)
+
             poem += endSign[flag]
             if endSign[flag] == '。':
+                probs2, state = sess.run([probs, finalState],
+                                         feed_dict={gtX: np.array([[wordToID["。"]]]), initState: state})
                 poem += '\n'
+            else:
+                probs2, state = sess.run([probs, finalState],
+                                         feed_dict={gtX: np.array([[wordToID["，"]]]), initState: state})
+
         print(characters)
         print(poem)
         return poem

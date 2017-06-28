@@ -7,9 +7,10 @@
    github: https://github.com/hjptriplebee
 '''''''''''''''''''''''''''''''''''''''''''''''''''''
 batchSize = 16
-learningRateBase = 0.002
+learningRateBase = 0.001
 learningRateDecreaseStep = 80
 epochNum = 100
-generateNum = 5
+generateNum = 3
 
-trainPoems = "poetry.txt" # training file location
+trainPoems = "dataset/poetry.txt" # training file location
+checkpointsPath = "./checkpoints"

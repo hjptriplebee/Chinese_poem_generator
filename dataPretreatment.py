@@ -33,6 +33,14 @@ def pretreatment(filename):
                 allWords[word] = 1
             else:
                 allWords[word] += 1
+    #'''
+    erase = []
+    for key in allWords:
+        if allWords[key] < 2:
+            erase.append(key)
+    for key in erase:
+        del allWords[key]
+    #'''
     wordPairs = sorted(allWords.items(), key = lambda x: -x[1])
     words, a= zip(*wordPairs)
     #print(words)
