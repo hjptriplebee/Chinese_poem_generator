@@ -36,6 +36,7 @@ def train(X, Y, wordNum, reload=True):
     gtY = tf.placeholder(tf.int32, shape=[batchSize, None])  # output
     logits, probs, a, b, c = buildModel(wordNum, gtX)
     targets = tf.reshape(gtY, [-1])
+    #loss
     loss = tf.contrib.legacy_seq2seq.sequence_loss_by_example([logits], [targets],
                                                               [tf.ones_like(targets, dtype=tf.float32)], wordNum)
     cost = tf.reduce_mean(loss)
@@ -99,7 +100,7 @@ def test(wordNum, wordToID, words):
         poems = []
         for i in range(generateNum):
             state = sess.run(stackCell.zero_state(1, tf.float32))
-            x = np.array([[wordToID['[']]])
+            x = np.array([[wordToID['[']]]) # init start sign
             probs1, state = sess.run([probs, finalState], feed_dict={gtX: x, initState: state})
             word = probsToWord(probs1, words)
             poem = ''
@@ -145,6 +146,7 @@ def testHead(wordNum, wordToID, words, characters):
                 word = probsToWord(probs2, words)
 
             poem += endSign[flag]
+            # keep the context, state must be updated
             if endSign[flag] == '。':
                 probs2, state = sess.run([probs, finalState],
                                          feed_dict={gtX: np.array([[wordToID["。"]]]), initState: state})

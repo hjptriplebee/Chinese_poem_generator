@@ -21,7 +21,7 @@ def pretreatment(filename):
             continue
         if len(poem) < 10 or len(poem) > 128:  #filter poem
             continue
-        poem = '[' + poem + ']'
+        poem = '[' + poem + ']' #add start and end signs
         poems.append(poem)
 
     print("唐诗总数： %d"%len(poems))
@@ -34,6 +34,7 @@ def pretreatment(filename):
             else:
                 allWords[word] += 1
     #'''
+    # erase words which are not common
     erase = []
     for key in allWords:
         if allWords[key] < 2:
@@ -45,14 +46,15 @@ def pretreatment(filename):
     words, a= zip(*wordPairs)
     #print(words)
     words += (" ", )
-    wordToID = dict(zip(words, range(len(words))))
+    wordToID = dict(zip(words, range(len(words)))) #word to ID
     wordTOIDFun = lambda A: wordToID.get(A, len(words))
-    poemsVector = [([wordTOIDFun(word) for word in poem]) for poem in poems]
+    poemsVector = [([wordTOIDFun(word) for word in poem]) for poem in poems] # poem to vector
     #print(poemsVector)
     #padding length to batchMaxLength
     batchNum = (len(poemsVector) - 1) // batchSize
     X = []
     Y = []
+    #create batch
     for i in range(batchNum):
         batch = poemsVector[i * batchSize: (i + 1) * batchSize]
         maxLength = max([len(vector) for vector in batch])
