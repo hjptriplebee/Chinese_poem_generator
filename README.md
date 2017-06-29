@@ -19,6 +19,9 @@
 # 存在的问题
 - 有时候效果不好，多生成几次一定有比较好的结果
 - 现在看起来有点像人工智障，但是相信胖虎会越来越厉害！
-###**方法比较粗暴，欢迎各位大佬提出建设性意见！**
+
+####**方法比较粗暴，欢迎各位大佬提出建设性意见！**
+
+####详细的项目实现和代码说明请看[这里](http://blog.csdn.net/accepthjp/article/details/73875108)
 
 <img src="https://raw.githubusercontent.com/hjptriplebee/Chinese_poem_generator/master/panghu2.jpg" width = "200" height = "200" alt="demo2" />
