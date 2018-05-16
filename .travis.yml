@@ -1,0 +1,6 @@
+language: python
+python: "3.6"
+sudo: enable #有定制化开发环境需要，默认false
+before_install: sudo pip install tensorflow 
+install: true
+script: python main.py 
