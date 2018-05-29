@@ -6,11 +6,23 @@
    e-mail: huangjipengnju@gmail.com
    github: https://github.com/hjptriplebee
 '''''''''''''''''''''''''''''''''''''''''''''''''''''
-batchSize = 16
-learningRateBase = 0.001
-learningRateDecreaseStep = 100
-epochNum = 100                    # train epoch
-generateNum = 3                   # number of generated poems per time
+import tensorflow as tf
+import numpy as np
+import argparse
+import os
+import random
+import time
 
-trainPoems = "dataset/poetry.txt" # training file location
-checkpointsPath = "./checkpoints" # checkpoints location
+batchSize = 64
+
+learningRateBase = 0.001
+learningRateDecayStep = 1000
+learningRateDecayRate = 0.95
+
+epochNum = 500                    # train epoch
+generateNum = 1                   # number of generated poems per time
+
+trainPoems = "dataset/shijing/shijing.txt" # training file location
+checkpointsPath = "./checkpoints/shijing" # checkpoints location
+
+saveStep = 500

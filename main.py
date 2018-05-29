@@ -6,10 +6,9 @@
    e-mail: huangjipengnju@gmail.com
    github: https://github.com/hjptriplebee
 '''''''''''''''''''''''''''''''''''''''''''''''''''''
-import argparse
-import dataPretreatment
-import model
 from config import *
+import data
+import model
 
 def defineArgs():
     """define args"""
@@ -19,16 +18,14 @@ def defineArgs():
     return parser.parse_args()
 
 if __name__ == "__main__":
-    X, Y, wordNum, wordToID, words = dataPretreatment.pretreatment(trainPoems)
     args = defineArgs()
+    trainData = data.POEMS(trainPoems)
+    MCPangHu = model.MODEL(trainData)
     if args.mode == "train":
-        print("training...")
-        model.train(X, Y, wordNum)
+        MCPangHu.train()
     else:
         if args.mode == "test":
-            print("genrating...")
-            poems = model.test(wordNum, wordToID, words)
+            poems = MCPangHu.test()
         else:
             characters = input("please input chinese character:")
-            print("genrating...")
-            poems = model.testHead(wordNum, wordToID, words, characters)
+            poems = MCPangHu.testHead(characters)

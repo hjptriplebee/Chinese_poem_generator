@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.org/hjptriplebee/Chinese_poem_generator.svg?branch=master)](https://travis-ci.org/hjptriplebee/Chinese_poem_generator)
 [![codecov](https://codecov.io/gh/hjptriplebee/Chinese_poem_generator/branch/master/graph/badge.svg)](https://codecov.io/gh/hjptriplebee/Chinese_poem_generator)
 [![license](https://img.shields.io/aur/license/yaourt.svg)](https://github.com/hjptriplebee/Chinese_poem_generator/blob/master/LICENSE)
+
 唐诗生成器，MC胖虎，使用LSTM完成，先看几个demo：
 
 一首藏头诗刀山火海送给大家！
