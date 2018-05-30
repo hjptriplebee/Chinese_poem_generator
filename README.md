@@ -9,7 +9,7 @@
 
 <img src="https://raw.githubusercontent.com/hjptriplebee/Chinese_poem_generator/master/panghu1.jpg" width = "100" height = "100" alt="demo2" /> <img src="https://raw.githubusercontent.com/hjptriplebee/Chinese_poem_generator/master/demo1.png" width = "350" height = "100" alt="demo1" />
 
-胖虎学诗3万首，会对偶，用典故，经常能作出边塞、田园、离别等多种风格的诗，信手拈来，好不好！
+胖虎学诗，会对偶，用典故，能作出边塞、田园、离别等多种风格的诗！
 
 <img src="https://raw.githubusercontent.com/hjptriplebee/Chinese_poem_generator/master/demo2.png" width = "850" height = "350" alt="demo2" />
 
@@ -20,12 +20,13 @@
 ## 用法
 - "python3 main.py -m {train, test, head}" train训练, test随机写诗, head藏头诗. 
 
-## 最近一次更新(2018-05-17)
-- 加入Travis CI持续集成
+## 最近一次更新(2018-05-30)
+- 重构
+- 修复out of index
+- 加入新数据集。[https://github.com/chinese-poetry/chinese-poetry](https://github.com/chinese-poetry/chinese-poetry)
 
 ## 接下来要做
 - 数据预处理步骤需要加强，比如：繁体字、特殊符号。
-- 使用更全更优质的唐诗数据训练。[https://github.com/chinese-poetry/chinese-poetry](https://github.com/chinese-poetry/chinese-poetry)
 - 修复有时出现的死循环。
 - 看图写诗，苦于没有数据集。
 
