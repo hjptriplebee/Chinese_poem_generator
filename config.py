@@ -19,10 +19,11 @@ learningRateBase = 0.001
 learningRateDecayStep = 1000
 learningRateDecayRate = 0.95
 
-epochNum = 500                    # train epoch
+epochNum = 50                    # train epoch
 generateNum = 1                   # number of generated poems per time
 
-trainPoems = "dataset/shijing/shijing.txt" # training file location
-checkpointsPath = "./checkpoints/shijing" # checkpoints location
+type = "songci"                   # dataset to use, shijing, songci, etc
+trainPoems = "./dataset/" + type + "/" + type + ".txt" # training file location
+checkpointsPath = "./checkpoints/" + type # checkpoints location
 
-saveStep = 500
+saveStep = 500                    # save model every savestep

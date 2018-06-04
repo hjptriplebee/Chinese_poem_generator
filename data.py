@@ -15,7 +15,7 @@ class POEMS:
         poems = []
         file = open(filename, "r")
         for line in file:  #every line is a poem
-            title, poem = line.strip().split(":")  #get title and poem
+            title, author, poem = line.strip().split("::")  #get title and poem
             poem = poem.replace(' ','')
             if len(poem) < 10 or len(poem) > 512:  #filter poem
                 continue
@@ -23,6 +23,7 @@ class POEMS:
                 continue
             poem = '[' + poem + ']' #add start and end signs
             poems.append(poem)
+            #print(title, author, poem)
         print("学习唐诗总数： %d" % len(poems))
         #counting words
         allWords = {}
