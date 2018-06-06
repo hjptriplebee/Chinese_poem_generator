@@ -29,7 +29,7 @@
 ## 常见问题
 **Q: 默认写唐诗，如何使胖虎写宋词，歌曲等其他东西？**
 
-A: 因为仓库不宜过大，所以只放了词的训练数据而没有放训练好的模型。config.py中默认的type是空，因而训练数据用的是“./dataset/poetrySong/poetrySong.txt"，加载的checkpoint是”./checkpoints/poetrySong/checkpoint“，如想使用其他训练数据，修改config.py，比如：type = songci，然后训练至少10个epoch。
+A: 因为仓库不宜过大，所以只放了词的训练数据而没有放训练好的模型。config.py中默认的type是poetrySong，因而训练数据用的是“./dataset/poetrySong/poetrySong.txt"，加载的checkpoint是”./checkpoints/poetrySong/checkpoint“，如想使用其他训练数据，修改config.py，比如：type = songci，然后训练至少10个epoch。
 
 **Q: 如何训练自己的数据？**
 
