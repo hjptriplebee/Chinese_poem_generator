@@ -24,7 +24,7 @@ class POEMS:
             poem = '[' + poem + ']' #add start and end signs
             poems.append(poem)
             #print(title, author, poem)
-        print("学习唐诗总数： %d" % len(poems))
+        print("学习样本总数： %d" % len(poems))
         #counting words
         allWords = {}
         for poem in poems:

@@ -82,7 +82,7 @@ class MODEL:
                     print("epoch: %d, steps: %d/%d, loss: %3f" % (epoch + 1,step + 1, epochSteps, loss))
                     if globalStep % saveStep == saveStep - 1: # prevent save at the beginning
                         print("save model")
-                        saver.save(sess,checkpointsPath + "/poem", global_step=globalStep)
+                        saver.save(sess, checkpointsPath + "/poem", global_step=globalStep)
 
     def probsToWord(self, weights, words):
         """probs to word"""

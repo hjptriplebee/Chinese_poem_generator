@@ -18,17 +18,34 @@
 - tensorflow1.0+
 
 ## 用法
-- "python3 main.py -m {train, test, head}" train训练, test随机写诗, head藏头诗. 
+- "python3 main.py -m {train, test, head}" train训练, test随机写诗, head藏头诗.
 
-## 最近一次更新(2018-05-30)
+## 最近一次更新(2018-06-06)
 - 重构
+- 处理了繁体字
 - 修复out of index
 - 加入新数据集。[https://github.com/chinese-poetry/chinese-poetry](https://github.com/chinese-poetry/chinese-poetry)
 
+## 常见问题
+**Q: 默认写唐诗，如何使胖虎写宋词，歌曲等其他东西？**
+
+A: 因为仓库不宜过大，所以只放了词的训练数据而没有放训练好的模型。config.py中默认的type是空，因而训练数据用的是“./dataset/poetrySong/poetrySong.txt"，加载的checkpoint是”./checkpoints/poetrySong/checkpoint“，如想使用其他训练数据，修改config.py，比如：type = songci，然后训练至少10个epoch。
+
+**Q: 如何训练自己的数据？**
+
+A: 目前的训练数据来源于[https://github.com/chinese-poetry/chinese-poetry](https://github.com/chinese-poetry/chinese-poetry)，我已经将json转换成txt，训练数据格式如下，可以将自己的数据做成这种形式训练模型。将数据按照同样的形式放入dataset下自己新建的目录，修改config.py中的type即可训练。
+
+```json
+标题::作者::内容
+静夜思::李白::床前看月光，疑是地上霜。举头望山月，低头思故乡。
+```
+
 ## 接下来要做
-- 数据预处理步骤需要加强，比如：繁体字、特殊符号。
-- 修复有时出现的死循环。
+- 尝试采用双向lstm模型
+- 数据预处理步骤需要加强，比如：特殊符号。
 - 看图写诗，苦于没有数据集。
+- 引入平仄等信息，使网络更容易拟合宋不规整的数据。
+- tensorboard
 
 有时候效果不好，多生成几次一定有比较好的结果。现在看起来有点像人工智障，但是相信胖虎会越来越厉害！
 
