@@ -26,23 +26,31 @@ class POEMS:
             #print(title, author, poem)
         print("学习样本总数： %d" % len(poems))
         #counting words
-        allWords = {}
+        wordFreq = collections.Counter()
         for poem in poems:
-            for word in poem:
-                if word not in allWords:
-                    allWords[word] = 1
-                else:
-                    allWords[word] += 1
+            wordFreq.update(poem)
+        #print(wordFreq)
+
+        # wordFreq = {}
+        # for poem in poems:
+        #     for word in poem:
+        #         if word not in wordFreq:
+        #             wordFreq[word] = 1
+        #         else:
+        #             wordFreq[word] += 1
+
         # erase words which are not common
+        #--------------------bug-------------------------
+        # word num less than original num, which causes nan value in loss function
         # erase = []
-        # for key in allWords:
-        #     if allWords[key] < 2:
+        # for key in wordFreq:
+        #     if wordFreq[key] < 2:
         #         erase.append(key)
         # for key in erase:
-        #     del allWords[key]
+        #     del wordFreq[key]
 
-        allWords[" "] = -1
-        wordPairs = sorted(allWords.items(), key = lambda x: -x[1])
+        wordFreq[" "] = -1
+        wordPairs = sorted(wordFreq.items(), key = lambda x: -x[1])
         self.words, freq = zip(*wordPairs)
         self.wordNum = len(self.words)
 

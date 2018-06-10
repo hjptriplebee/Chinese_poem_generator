@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/hjptriplebee/Chinese_poem_generator/branch/master/graph/badge.svg)](https://codecov.io/gh/hjptriplebee/Chinese_poem_generator)
 [![license](https://img.shields.io/aur/license/yaourt.svg)](https://github.com/hjptriplebee/Chinese_poem_generator/blob/master/LICENSE)
 
-唐诗生成器，MC胖虎，使用LSTM完成，先看几个demo：
+唐诗宋词生成器，MC胖虎，使用LSTM完成，先看几个demo：
 
 一首藏头诗刀山火海送给大家！
 
@@ -15,16 +15,13 @@
 
 ## 依赖
 - Python3
-- tensorflow1.0+
+- tensorflow1.2+
 
 ## 用法
 - "python3 main.py -m {train, test, head}" train训练, test随机写诗, head藏头诗.
 
-## 最近一次更新(2018-06-06)
-- 重构
-- 处理了繁体字
-- 修复out of index
-- 加入新数据集。[https://github.com/chinese-poetry/chinese-poetry](https://github.com/chinese-poetry/chinese-poetry)
+## 最近一次更新(2018-06-10)
+- tensorflow版本向上兼容，模型可用
 
 ## 常见问题
 **Q: 默认写唐诗，如何使胖虎写宋词，歌曲等其他东西？**

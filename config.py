@@ -12,6 +12,7 @@ import argparse
 import os
 import random
 import time
+import collections
 
 batchSize = 64
 
@@ -19,8 +20,8 @@ learningRateBase = 0.001
 learningRateDecayStep = 1000
 learningRateDecayRate = 0.95
 
-epochNum = 50                    # train epoch
-generateNum = 3                   # number of generated poems per time
+epochNum = 10                    # train epoch
+generateNum = 5                   # number of generated poems per time
 
 type = "poetrySong"                   # dataset to use, shijing, songci, etc
 trainPoems = "./dataset/" + type + "/" + type + ".txt" # training file location
