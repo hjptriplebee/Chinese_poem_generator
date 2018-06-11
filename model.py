@@ -50,12 +50,12 @@ class MODEL:
         addGlobalStep = globalStep.assign_add(1)
 
         cost = tf.reduce_mean(loss)
-        tvars = tf.trainable_variables()
-        grads, a = tf.clip_by_global_norm(tf.gradients(cost, tvars), 5)
+        trainableVariables = tf.trainable_variables()
+        grads, a = tf.clip_by_global_norm(tf.gradients(cost, trainableVariables), 5) # prevent loss divergence caused by gradient explosion
         learningRate = tf.train.exponential_decay(learningRateBase, global_step=globalStep,
                                                   decay_steps=learningRateDecayStep, decay_rate=learningRateDecayRate)
         optimizer = tf.train.AdamOptimizer(learningRate)
-        trainOP = optimizer.apply_gradients(zip(grads, tvars))
+        trainOP = optimizer.apply_gradients(zip(grads, trainableVariables))
 
 
         with tf.Session() as sess:
@@ -78,11 +78,11 @@ class MODEL:
                 X, Y = self.trainData.generateBatch()
                 epochSteps = len(X) # equal to batch
                 for step, (x, y) in enumerate(zip(X, Y)):
-                    a, loss, globalStep = sess.run([trainOP, cost, addGlobalStep], feed_dict = {gtX:x, gtY:y})
-                    print("epoch: %d, steps: %d/%d, loss: %3f" % (epoch + 1,step + 1, epochSteps, loss))
-                    if globalStep % saveStep == saveStep - 1: # prevent save at the beginning
+                    a, loss, gStep = sess.run([trainOP, cost, addGlobalStep], feed_dict = {gtX:x, gtY:y})
+                    print("epoch: %d, steps: %d/%d, loss: %3f" % (epoch + 1, step + 1, epochSteps, loss))
+                    if gStep % saveStep == saveStep - 1: # prevent save at the beginning
                         print("save model")
-                        saver.save(sess, checkpointsPath + "/poem", global_step=globalStep)
+                        saver.save(sess, os.path.join(checkpointsPath, type), global_step=gStep)
 
     def probsToWord(self, weights, words):
         """probs to word"""

@@ -10,7 +10,7 @@ from config import *
 
 class POEMS:
     "poem class"
-    def __init__(self, filename):
+    def __init__(self, filename, isEvaluate=False):
         """pretreatment"""
         poems = []
         file = open(filename, "r")
@@ -24,20 +24,12 @@ class POEMS:
             poem = '[' + poem + ']' #add start and end signs
             poems.append(poem)
             #print(title, author, poem)
-        print("学习样本总数： %d" % len(poems))
+
         #counting words
         wordFreq = collections.Counter()
         for poem in poems:
             wordFreq.update(poem)
-        #print(wordFreq)
-
-        # wordFreq = {}
-        # for poem in poems:
-        #     for word in poem:
-        #         if word not in wordFreq:
-        #             wordFreq[word] = 1
-        #         else:
-        #             wordFreq[word] += 1
+        # print(wordFreq)
 
         # erase words which are not common
         #--------------------bug-------------------------
@@ -55,19 +47,33 @@ class POEMS:
         self.wordNum = len(self.words)
 
         self.wordToID = dict(zip(self.words, range(self.wordNum))) #word to ID
-        self.poemsVector = [([self.wordToID[word] for word in poem]) for poem in poems] # poem to vector
+        poemsVector = [([self.wordToID[word] for word in poem]) for poem in poems] # poem to vector
+        if isEvaluate: #evaluating need divide dataset into test set and train set
+            self.trainVector = poemsVector[:int(len(poemsVector) * trainRatio)]
+            self.testVector = poemsVector[int(len(poemsVector) * trainRatio):]
+        else:
+            self.trainVector = poemsVector
+            self.testVector = []
+        print("训练样本总数： %d" % len(self.trainVector))
+        print("测试样本总数： %d" % len(self.testVector))
 
-    def generateBatch(self):
+
+    def generateBatch(self, isTrain=True):
         #padding length to batchMaxLength
-        random.shuffle(self.poemsVector)
-        batchNum = (len(self.poemsVector) - 1) // batchSize
+        if isTrain:
+            poemsVector = self.trainVector
+        else:
+            poemsVector = self.testVector
+
+        random.shuffle(poemsVector)
+        batchNum = (len(poemsVector) - 1) // batchSize
         X = []
         Y = []
         #create batch
         for i in range(batchNum):
-            batch = self.poemsVector[i * batchSize: (i + 1) * batchSize]
+            batch = poemsVector[i * batchSize: (i + 1) * batchSize]
             maxLength = max([len(vector) for vector in batch])
-            temp = np.full((batchSize, maxLength), self.wordToID[" "], np.int32)
+            temp = np.full((batchSize, maxLength), self.wordToID[" "], np.int32) # padding space
             for j in range(batchSize):
                 temp[j, :len(batch[j])] = batch[j]
             X.append(temp)
