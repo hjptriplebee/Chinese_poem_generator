@@ -14,7 +14,8 @@ before_install:
 install: true
 
 script: 
-  - coverage run main.py
+  - coverage run main.py -m test
+  - coverage run main.py -m head < testCase.txt
 
 after_success:
   - codecov
