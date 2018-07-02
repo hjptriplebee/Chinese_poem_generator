@@ -11,7 +11,7 @@
 
 胖虎学诗，会对偶，用典故，能作出边塞、田园、离别等多种风格的诗！
 
-<img src="https://raw.githubusercontent.com/hjptriplebee/Chinese_poem_generator/master/demo2.png" width = "850" height = "350" alt="demo2" />
+<img src="https://raw.githubusercontent.com/hjptriplebee/Chinese_poem_generator/master/demo2.png" width = "45%" alt="demo2" />
 
 ## 依赖
 - Python3
