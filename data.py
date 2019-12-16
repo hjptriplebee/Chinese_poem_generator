@@ -13,7 +13,7 @@ class POEMS:
     def __init__(self, filename, isEvaluate=False):
         """pretreatment"""
         poems = []
-        file = open(filename, "r")
+        file = open(filename, "r", encoding='utf-8')
         for line in file:  #every line is a poem
             title, author, poem = line.strip().split("::")  #get title and poem
             poem = poem.replace(' ','')
